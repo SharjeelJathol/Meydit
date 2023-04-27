@@ -18,8 +18,25 @@
 |
 */
 
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async () => {
   return { hello: 'world' }
+})
+
+Route.post("/consumer/:id",async (ctx:HttpContextContract) => {
+  // This will take a request of new job form the user and insert that in the database, later to be used.
+})
+
+Route.get("/jobs",async (ctx:HttpContextContract) => {
+  // This route will return all the jobs available but considering the query parameter named page as a pagination tool for itself. along with that it will use query parameters and see if they contain any value then apply those values as a filter on the result and then apply pagination. After that our result is ready to be transfered and response will be sent.
+})
+
+Route.get("/jobs/:id",async (ctx:HttpContextContract) => {
+  // Thi route ill be used to send all the related information of a specific job defined in the id parameter.
+})
+
+Route.post("/maker/quote",async (ctx:HttpContextContract) => {
+  // This route will be used for the maker to quote on the selected job.
 })
