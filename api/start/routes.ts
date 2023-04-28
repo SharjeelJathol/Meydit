@@ -28,18 +28,25 @@ Route.get('/', async () => {
 // Destructuring can also be used by {request, response, params etc} : HttpContextContract
 // Route.group(()=>{Routes}).prefix('common_route') be used for grouping of multple routes, all started with the same initials. Same as Route in Express.js 
 // Route().as("alias") to 
-Route.post("/consumer/:id",async (ctx:HttpContextContract) => {
-  // This will take a request of new job form the user and insert that in the database, later to be used.
-})
 
-Route.get("/jobs/:id",async (ctx:HttpContextContract) => {
-  // Thi route ill be used to send all the related information of a specific job defined in the id parameter.
-})
-// Or we can use /jobs/:id? which will make id parameter as option, rather than a compulsion
-Route.get("/jobs",async (ctx:HttpContextContract) => {
-  // This route will return all the jobs available but considering the query parameter named page as a pagination tool for itself. along with that it will use query parameters and see if they contain any value then apply those values as a filter on the result and then apply pagination. After that our result is ready to be transfered and response will be sent.
-})
+Route.group(()=>{
+  Route.post("/consumer/:id",async (ctx:HttpContextContract) => {
+    // This will take a request of new job form the user and insert that in the database, later to be used.
+  }).as('store')
+}).prefix('/consumer')
 
-Route.post("/maker/quote",async (ctx:HttpContextContract) => {
-  // This route will be used for the maker to quote on the selected job.
-})
+Route.group(()=>{
+  Route.get("/:id",async (ctx:HttpContextContract) => {
+    // Thi route ill be used to send all the related information of a specific job defined in the id parameter.
+  }).as('index')
+  // Or we can use /jobs/:id? which will make id parameter as option, rather than a compulsion
+  Route.get("/",async (ctx:HttpContextContract) => {
+    // This route will return all the jobs available but considering the query parameter named page as a pagination tool for itself. along with that it will use query parameters and see if they contain any value then apply those values as a filter on the result and then apply pagination. After that our result is ready to be transfered and response will be sent.
+  }).as('show')
+}).prefix('/jobs')
+
+Route.group(()=>{
+  Route.post("/quote",async (ctx:HttpContextContract) => {
+    // This route will be used for the maker to quote on the selected job.
+  }).as('store')
+}).prefix('/maker').as('maker.')
