@@ -5,7 +5,7 @@ export default class QuotesController {
 
   public async create({}: HttpContextContract) {}
 
-  public async store({}: HttpContextContract) {}
+  public async store(ctx: HttpContextContract) {}
 
   public async show({}: HttpContextContract) {}
 

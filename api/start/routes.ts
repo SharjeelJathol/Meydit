@@ -30,23 +30,23 @@ Route.get('/', async () => {
 // Route().as("alias") to 
 
 Route.group(()=>{
-  Route.post("/consumer/:id",async (ctx:HttpContextContract) => {
-    // This will take a request of new job form the user and insert that in the database, later to be used.
-  }).as('store')
+  Route.post("/:id",'JobsController.store').as('store')
+  // This will take a request of new job form the user and insert that in the database, later to be used.
 }).prefix('/consumer')
 
 Route.group(()=>{
-  Route.get("/:id",async (ctx:HttpContextContract) => {
-    // Thi route ill be used to send all the related information of a specific job defined in the id parameter.
-  }).as('index')
+  // This route will be used to send all the related information of a specific job defined in the id parameter.
   // Or we can use /jobs/:id? which will make id parameter as option, rather than a compulsion
-  Route.get("/",async (ctx:HttpContextContract) => {
-    // This route will return all the jobs available but considering the query parameter named page as a pagination tool for itself. along with that it will use query parameters and see if they contain any value then apply those values as a filter on the result and then apply pagination. After that our result is ready to be transfered and response will be sent.
-  }).as('show')
+  Route.get("/:id",'JobsController.index').as('index')
+  // This route will return all the jobs available but considering the query parameter named page as a pagination tool for itself. along with that it will use query parameters and see if they contain any value then apply those values as a filter on the result and then apply pagination. After that our result is ready to be transfered and response will be sent.
+  Route.get("/",'JobsController.show').as('show')
+  // to get all the sample urls of the job
+  Route.get('/samples', 'SamplesController.index').as('index')
+  // to get the picture of special url in the sample
+  Route.get('/sample/:id', 'SamplesController.show').as('show')
 }).prefix('/jobs')
 
 Route.group(()=>{
-  Route.post("/quote",async (ctx:HttpContextContract) => {
-    // This route will be used for the maker to quote on the selected job.
-  }).as('store')
+  // This route will be used for the maker to quote on the selected job.
+  Route.post("/quote",'QuotesController.store').as('store')
 }).prefix('/maker').as('maker.')

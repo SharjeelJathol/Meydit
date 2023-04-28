@@ -1,13 +1,13 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class SamplesController {
-  public async index({}: HttpContextContract) {}
+  public async index(ctx: HttpContextContract) {}
 
   public async create({}: HttpContextContract) {}
 
   public async store({}: HttpContextContract) {}
 
-  public async show({}: HttpContextContract) {}
+  public async show(ctx: HttpContextContract) {}
 
   public async edit({}: HttpContextContract) {}
 
