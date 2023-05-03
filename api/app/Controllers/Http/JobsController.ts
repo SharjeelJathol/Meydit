@@ -42,7 +42,7 @@ export default class JobsController {
   }
 
   public async show(ctx: HttpContextContract) {
-    const taskModel=await Job.findMany([])
+    const taskModel=await Job.all()
     console.log(taskModel)
     ctx.response.send({jobs:taskModel})
   }
