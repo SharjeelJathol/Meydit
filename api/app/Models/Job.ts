@@ -19,6 +19,9 @@ export default class Job extends BaseModel {
   public first_name: String
   
   @column()
+  public phone_number: String
+  
+  @column()
   public last_name: String
   
   @column()
