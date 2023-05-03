@@ -14,6 +14,10 @@ export default class SamplesController {
   public async store({}: HttpContextContract) {}
 
   public async show(ctx: HttpContextContract) {}
+  public async show(ctx: HttpContextContract) {
+    const samples=await Sample.query().where('job_id', ctx.request.params().id)
+    return ctx.response.json({ samples })
+  }
 
   public async edit({}: HttpContextContract) {}
 
