@@ -2,6 +2,12 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class SamplesController {
   public async index(ctx: HttpContextContract) {}
+  // return the file whose name is in the url id parameter
+  public async index(ctx: HttpContextContract) {
+    const fileName=ctx.request.params().id
+    const readableStream = await Drive.getStream(fileName)
+    ctx.response.stream(readableStream)
+  }
 
   public async create({}: HttpContextContract) {}
 
