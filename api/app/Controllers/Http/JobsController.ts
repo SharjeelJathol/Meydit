@@ -1,10 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Job from 'App/Models/Job'
+import Sample from 'App/Models/Sample'
 
 export default class JobsController {
   public async index(ctx: HttpContextContract) {
-    const taskModel=await Job.query().where('id', ctx.params.id).select('*').first()
-    ctx.response.send(taskModel)
+    const job=await Job.query().where('id', ctx.params.id).select('*').first()
+    const samples=await Sample.query().where('job_id', ctx.params.id)
+    ctx.response.send({job, samples})
   }
 
   public async create({}: HttpContextContract) {}
