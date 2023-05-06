@@ -1,43 +1,45 @@
 import React from 'react'
 import { Autocomplete, Stack, TextField } from '@mui/material'
-import logo from '.././image.jpeg';
-import logo2 from '.././logo.svg';
 import JobCard from './JobCard';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
+import axios from 'axios';
 
-let jobs=[
-    {id:'one', clothing:'Blouse', budget:100, sample:logo, quotaions:10},
-    {id:'two', clothing:'Blouse', budget:100, sample:logo2, quotaions:10},
-    {id:'three', clothing:'Blouse', budget:100, sample:logo, quotaions:10},
-    {id:'four', clothing:'Blouse', budget:100, sample:logo2, quotaions:10},
-    {id:'five', clothing:'Blouse', budget:100, sample:logo2, quotaions:10},
-]
-
-const top100Films = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-  { title: 'The Dark Knight', year: 2008 },
-  { title: '12 Angry Men', year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: 'Pulp Fiction', year: 1994 },
+const clothes = [
+  { clothing: 'Dress'},
+  { clothing: 'Ethnic Wear'},
+  { clothing: 'Sari/Blouse'},
 ]
 export default function JobsAvailable() {
+  const [jobs, setJobs]=React.useState([]);
+  let filters=window.location.pathname.split('/')[2];
+
+  React.useEffect(() => {
+    axios({
+      method: "get",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      url: "/jobs",
+    }).then(result=>{
+      console.log(result.data)
+      if(result.data.jobs)
+        setJobs(result.data.jobs)
+      console.log(jobs)
+    }).catch(error=>console.log(error))
+  }, [])
+  
   return (
     <>
     <Stack direction='row' sx={{flexWrap:'wrap', justifyContent:'center'}} spacing={5} useFlexGap={true}>
       <Autocomplete
-        id="highlights-demo"
         sx={{ width: 300 }}
-        options={top100Films}
-        getOptionLabel={(option) => option.title}
+        options={clothes}
+        getOptionLabel={(option) => option.clothing}
         renderInput={(params) => (
-          <TextField {...params} label="Highlights" margin="normal" />
+          <TextField {...params} label="Cothing Type" margin="normal" />
         )}
         renderOption={(props, option, { inputValue }) => {
-          const matches = match(option.title, inputValue, { insideWords: true });
-          const parts = parse(option.title, matches);
+          const matches = match(option.clothing, inputValue, { insideWords: true });
+          const parts = parse(option.clothing, matches);
 
           return (
             <li {...props}>
@@ -58,16 +60,15 @@ export default function JobsAvailable() {
         }}
       />
       <Autocomplete
-        id="highlights-demo"
         sx={{ width: 300 }}
-        options={top100Films}
-        getOptionLabel={(option) => option.title}
+        options={clothes}
+        getOptionLabel={(option) => option.clothing}
         renderInput={(params) => (
           <TextField {...params} label="Highlights" margin="normal" />
         )}
         renderOption={(props, option, { inputValue }) => {
-          const matches = match(option.title, inputValue, { insideWords: true });
-          const parts = parse(option.title, matches);
+          const matches = match(option.clothing, inputValue, { insideWords: true });
+          const parts = parse(option.clothing, matches);
 
           return (
             <li {...props}>
@@ -91,7 +92,7 @@ export default function JobsAvailable() {
       </Stack>
         <Stack direction='row' sx={{flexWrap:'wrap', justifyContent:'center'}} spacing={5} useFlexGap={true}>
             {jobs.map((job)=>{
-                return <JobCard key={job.id} id={job.id} clothing={job.clothing} budget={job.budget} logo={job.sample} quotaions={job.quotaions} />
+                return <JobCard key={job.id} id={job.id} clothing={job.clothing} budget={job.budget} count={job.count} status={job.status} state={job.state} />
             })}
         </Stack>
     </>
