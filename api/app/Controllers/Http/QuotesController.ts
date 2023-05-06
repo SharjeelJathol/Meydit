@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Job from 'App/Models/Job'
-
+import mail from './Mailer'
 export default class QuotesController {
   public async index({}: HttpContextContract) {}
 
@@ -14,7 +14,9 @@ export default class QuotesController {
     if(job){
       const response= await job.related('quotes').create({price:quote, comment:description})
       job.count=job.count+1
+      mail(job.email, quote, description);
       job.save()
+      
       ctx.response.send(response)
     }
     else
