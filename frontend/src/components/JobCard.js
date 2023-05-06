@@ -22,24 +22,60 @@ export default function JobCard(props) {
                     </Grid>
                 </Grid>
             </Box>
-            <CardMedia sx={{height:200, width:200}}>
+            {/* <CardMedia sx={{height:200, width:200}}>
               <img  alt='Samples' src={props.logo}/>
 
-            </CardMedia>
+            </CardMedia> */}
             <Divider variant="middle" />
             <Box sx={{ m: 2 , justifyContent:'space-between'}}>
-            <Grid container alignItems="center">
-                    <Grid item xs>
-                        <Typography gutterBottom variant="body1" component="div">
-                        Budget
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography gutterBottom variant="body1" component="div">
-                        {props.budget}
-                        </Typography>
-                    </Grid>
+              <Grid container alignItems="center">
+                <Grid item xs>
+                    <Typography gutterBottom variant="body1" component="div">
+                    Budget
+                    </Typography>
                 </Grid>
+                <Grid item>
+                    <Typography gutterBottom variant="body1" component="div">
+                    {props.budget}
+                    </Typography>
+                </Grid>
+              </Grid>
+              <Grid container alignItems="center">
+                <Grid item xs>
+                    <Typography gutterBottom variant="body1" component="div">
+                    Status
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <Typography gutterBottom variant="body1" component="div">
+                    {props.status}
+                    </Typography>
+                </Grid>
+              </Grid>
+              <Grid container alignItems="center">
+                <Grid item xs>
+                    <Typography gutterBottom variant="body1" component="div">
+                    Quotations
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <Typography gutterBottom variant="body1" component="div">
+                    {props.count}
+                    </Typography>
+                </Grid>
+              </Grid>
+              <Grid container alignItems="center">
+                <Grid item xs>
+                    <Typography gutterBottom variant="body1" component="div">
+                    State
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <Typography gutterBottom variant="body1" component="div">
+                    {props.state}
+                    </Typography>
+                </Grid>
+              </Grid>
             </Box>
             <Divider variant="middle" />
       </CardContent>
