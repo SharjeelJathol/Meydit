@@ -44,7 +44,7 @@ export default function PostJob() {
     }
   return (
     <>
-    <Navbar/>
+    {/* <Navbar/> */}
     <Container maxWidth='sm'>
         <FormGroup>
           <FormControl className='MuiFormControl-marginNormal'>
