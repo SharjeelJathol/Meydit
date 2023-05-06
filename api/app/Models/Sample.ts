@@ -1,4 +1,3 @@
-// import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, beforeCreate, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Job from './Job'
 import { randomUUID } from 'crypto'

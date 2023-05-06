@@ -48,11 +48,14 @@ export default class Job extends BaseModel {
   @column({})
   public count: number
   
+  @column()
+  public status: String
+  
   @hasMany(() => Sample, {
     foreignKey: 'job_id', 
   })
   public samples: HasMany<typeof Sample>
-
+  
   @hasMany(() => Quote, {
     foreignKey: 'job_id', 
   })

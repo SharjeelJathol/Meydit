@@ -17,6 +17,7 @@ export default class Jobs extends BaseSchema {
       table.text('description').notNullable();
       table.integer('budget').unsigned();
       table.integer('count').unsigned().notNullable().defaultTo(0);
+      table.string('status').notNullable().defaultTo('Open');
     })
   }
 

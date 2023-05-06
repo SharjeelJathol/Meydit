@@ -14,38 +14,32 @@ export default class JobsController {
   public async store(ctx: HttpContextContract) {
 
     let body=ctx.request.body()
-    console.log('body:', body)
-    const images = ctx.request.files('samples')
-    let links:Array<string>=[];
-
+    const images = ctx.request.files('samples') 
     const job= await Job.create({
       first_name:body.first_name,
       last_name:body.last_name,
       clothing:body.clothing,
+      phone_number:body.phone_number,
       email:body.email,
       address:body.address,
       postal_code:body.postal_code,
       state:body.state,
       description:body.description,
       budget:body.budget,
-      count:0,
     });
 
     for (let image of images) {
       await image.moveToDisk('./')
       const fileName = image.fileName;
       if(fileName){
-        links.push(fileName)
-        console.log(fileName)
         console.log(await job.related('samples').create({file:fileName}))
       }
     }
-    return {body: ctx.request.body()}
+    return {job}
   }
 
   public async show(ctx: HttpContextContract) {
     const taskModel=await Job.all()
-    console.log(taskModel)
     ctx.response.send({jobs:taskModel})
   }
 

@@ -5,6 +5,7 @@ export default class Samples extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
+      table.uuid('id').primary();
       table.uuid('job_id').references('id').inTable('jobs');
       table.string('file').notNullable();
     })
