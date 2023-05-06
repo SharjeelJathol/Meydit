@@ -1,24 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
-
+import PostJob from './components/PostJob';
+import Navbar from './components/Navbar';
+import Homepage from './components/Hompage';
+import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import JobDetails from './components/JobDetails';
 function App() {
+  axios.defaults.baseURL='http://127.0.0.1:3333';
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <>
+      <Router>
+        <Navbar/>
+        <Routes>
+          <Route exact path='/post' element={<PostJob/>}/>
+          <Route exact path='/job/*' element={<JobDetails/>}/>
+          <Route exact path='*' element={
+          <>
+            <Homepage/>
+          </>
+        }/>
+        </Routes>
+      </Router>
+      </>
   );
 }
 
