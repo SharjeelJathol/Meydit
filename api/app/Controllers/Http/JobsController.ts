@@ -15,6 +15,17 @@ export default class JobsController {
 
     let body=ctx.request.body()
     const images = ctx.request.files('samples') 
+    if(!body.first_name
+      ||!body.last_name
+      ||!body.clothing
+      ||!body.phone_number
+      ||!body.email
+      ||!body.address
+      ||!body.postal_code
+      ||!body.state
+      ||!body.description
+      ||!images)
+      ctx.response.status(300).send('Failed')
     const job= await Job.create({
       first_name:body.first_name,
       last_name:body.last_name,
