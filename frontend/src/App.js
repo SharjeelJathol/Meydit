@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Homepage from './components/Hompage';
 import axios from 'axios';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
