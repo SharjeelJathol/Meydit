@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container, TextField, Button, FormGroup, FormControl, Input, FormHelperText, Select, InputLabel, MenuItem, InputAdornment, OutlinedInput } from '@mui/material';
-import Navbar from './Navbar';
 import axios from 'axios'
 import { useNavigate } from 'react-router';
 
@@ -70,9 +69,9 @@ export default function PostJob() {
             <TextField onChange={(e)=>set_address(e.target.value)} label="Postal Address" margin='dense' variant="outlined" />
           </FormControl>
           <FormControl margin='dense'>
-          <InputLabel id="clothing-label">Clothing Type</InputLabel>
+          <InputLabel>Clothing Type</InputLabel>
           <Select
-            labelId="clothing-label"
+            // labelId="clothing-label"
             label="Clothing Type" margin='dense' variant="outlined" 
             onChange={(e)=>set_clothing(e.target.value)}
           >
@@ -99,7 +98,7 @@ export default function PostJob() {
           <FormControl>
             {/* <FormHelperText>Sample Pictures</FormHelperText> */}
             {/* <InputLabel id="samples-label">Clothing Type</InputLabel> */}
-            <Input helperText="Some important text" label='Samples' labelId="samples-label" inputProps={{ multiple: true }} onChange={(e)=>{set_samples(e.target.files)}} margin='dense' name='files' type='file'/>
+            <Input label='Samples' inputProps={{ multiple: true }} onChange={(e)=>{set_samples(e.target.files)}} margin='dense' name='files' type='file'/>
           </FormControl>
           <FormControl margin='normal'></FormControl>
           <FormControl>

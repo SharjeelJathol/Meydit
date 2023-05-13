@@ -7,10 +7,9 @@ import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
 import { Card, CardActionArea, CardContent, Divider, FormControl, FormGroup, Grid, InputAdornment, InputLabel, OutlinedInput, Stack, TextField } from '@mui/material';
 import axios from 'axios'
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+// const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 export default function JobDetails() {
   const theme = useTheme();
@@ -19,7 +18,8 @@ export default function JobDetails() {
   const [quote, set_quote]=React.useState();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps=React.useRef();
-  const job=window.location.pathname.split('/')[2]
+  let job=window.location.href.split('/')
+  job=job[job.length-1]
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -45,6 +45,9 @@ export default function JobDetails() {
     }).catch(error=>console.log(error))
   }
   React.useEffect(()=>{
+    maxSteps.current=details?details.samples.length:[];
+  }, [details])
+  React.useEffect(()=>{
     axios({
       method: "get",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -52,14 +55,13 @@ export default function JobDetails() {
     }).then(res=>{
       console.log(res.data)
       setDetails(res.data)
-      maxSteps.current=details.samples.length
     }).catch(error=>console.log(error))
   }, [])
   return (
     <>
     <Stack direction='row' sx={{flexWrap:'wrap', justifyContent:'center', mt:4}} spacing={5} useFlexGap={true}>
     <Box sx={{ maxWidth: 500, flexGrow: 1, flexWrap:'wrap' }}>
-      <AutoPlaySwipeableViews
+      <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
@@ -76,22 +78,22 @@ export default function JobDetails() {
                   overflow: 'hidden',
                   width: '100%',
                 }}
-                src={`http://127.0.0.1:3333/jobs/image/${sample.file}`}
+                src={`http://13.234.34.35:3333/jobs/image/${sample.file}`}
                 alt={'Sample'}
               />
             ) : null}
           </div>
         )):null}
-      </AutoPlaySwipeableViews>
+      </SwipeableViews>
       <MobileStepper
-        steps={maxSteps.current}
+        steps={maxSteps.current>0?maxSteps.current:0}
         position="static"
         activeStep={activeStep}
         nextButton={
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === maxSteps.current - 1}
+            disabled={activeStep === maxSteps.current-1}
           >
             Next
             {theme.direction === 'rtl' ? (

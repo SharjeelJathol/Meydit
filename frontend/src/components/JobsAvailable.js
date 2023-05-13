@@ -12,7 +12,12 @@ const clothes = [
 ]
 export default function JobsAvailable() {
   const [jobs, setJobs]=React.useState([]);
-  let filters=window.location.pathname.split('/')[2];
+  // const [jobsAll, setJobsAll]=React.useState([]);
+  // const [filter, setFilter]=React.useState();
+
+  // React.useEffect(()=>{
+  //   setJobs(jobsAll)
+  // }, [filter])
 
   React.useEffect(() => {
     axios({
@@ -30,17 +35,18 @@ export default function JobsAvailable() {
   return (
     <>
     <Stack direction='row' sx={{flexWrap:'wrap', justifyContent:'center'}} spacing={5} useFlexGap={true}>
-      <Autocomplete
+      {/* <Autocomplete
         sx={{ width: 300 }}
         options={clothes}
-        getOptionLabel={(option) => option.clothing}
+        getOptionLabel={(option) => {console.log(option.clothing);  return option.clothing;}}
         renderInput={(params) => (
-          <TextField {...params} label="Cothing Type" margin="normal" />
+          <TextField  {...params} label="Cothing Type" margin="normal" />
         )}
         renderOption={(props, option, { inputValue }) => {
           const matches = match(option.clothing, inputValue, { insideWords: true });
           const parts = parse(option.clothing, matches);
-
+          // console.log('Target',option.clothing);
+          setFilter('')
           return (
             <li {...props}>
               <div>
@@ -58,8 +64,8 @@ export default function JobsAvailable() {
             </li>
           );
         }}
-      />
-      <Autocomplete
+      /> */}
+      {/* <Autocomplete
         sx={{ width: 300 }}
         options={clothes}
         getOptionLabel={(option) => option.clothing}
@@ -87,11 +93,12 @@ export default function JobsAvailable() {
             </li>
           );
         }}
-      />
+      /> */}
 
       </Stack>
         <Stack direction='row' sx={{flexWrap:'wrap', justifyContent:'center'}} spacing={5} useFlexGap={true}>
             {jobs.map((job)=>{
+                
                 return <JobCard key={job.id} id={job.id} clothing={job.clothing} budget={job.budget} count={job.count} status={job.status} state={job.state} />
             })}
         </Stack>

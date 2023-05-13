@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import JobDetails from './components/JobDetails';
 function App() {
-  axios.defaults.baseURL='http://127.0.0.1:3333';
+  axios.defaults.baseURL='http://13.234.34.35:3333';
   return (
       <>
       <Router>
